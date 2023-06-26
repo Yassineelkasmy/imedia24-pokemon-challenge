@@ -1,6 +1,6 @@
 export interface IPokemonDetails {
     name: string;
-    abilities: string[];
+    abilities: { ability: { name: string, url: string, } }[];
     stats: string[];
     forms: string[];
     game_indices: string[];
