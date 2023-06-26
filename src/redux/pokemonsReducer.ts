@@ -58,7 +58,6 @@ const PokemonsReducer = (state = initialState, action: actions.PokemonsActions) 
         default:
             return state;
 
-
     }
 
 
