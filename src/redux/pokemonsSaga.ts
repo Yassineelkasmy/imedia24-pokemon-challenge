@@ -13,7 +13,7 @@ interface FetchPokemonsResponse {
 }
 
 
-const getPokemons = () => axios.get<FetchPokemonsResponse>("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=50");
+const getPokemons = () => axios.get<FetchPokemonsResponse>("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=30");
 
 const getMorePokemons = (url: string) => axios.get<FetchPokemonsResponse>(url);
 
