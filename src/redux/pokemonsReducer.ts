@@ -1,11 +1,14 @@
 import { IPokemon } from "../models/IPokemon";
+import { IPokemonDetails } from "../models/IPokemonDetails";
 import { PokemonActionTypes } from "./pokemonActionTypes";
 import * as actions from "./pokemonsActions";
 
 export interface PokemonsState {
     loading: boolean,
     loadingMore: boolean,
+    loadingPokemonDetails: boolean,
     data: IPokemon[],
+    currentPokemonDetails: IPokemonDetails | null,
     count: number,
     next: string | null,
     error: string | null
@@ -14,6 +17,8 @@ export interface PokemonsState {
 const initialState: PokemonsState = {
     loading: false,
     loadingMore: false,
+    loadingPokemonDetails: false,
+    currentPokemonDetails: null,
     data: [],
     count: 0,
     next: null,
@@ -44,6 +49,23 @@ const PokemonsReducer = (state = initialState, action: actions.PokemonsActions) 
             return {
                 ...state,
                 loadingMore: true,
+                error: null,
+            }
+
+
+
+        case PokemonActionTypes.FETCH_POKEMON_DETAILS_REQUEST:
+            return {
+                ...state,
+                loadingPokemonDetails: true,
+                error: null,
+            }
+
+        case PokemonActionTypes.FETCH_POKEMON_DETAILS_SUCCESS:
+            return {
+                ...state,
+                loadingPokemonDetails: false,
+                currentPokemonDetails: action.payload,
                 error: null,
             }
 

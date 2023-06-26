@@ -6,6 +6,7 @@ import { PokemonActionTypes } from './redux/pokemonActionTypes';
 import { AppState } from './redux/rootReducer';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import PokemonCard from './components/PokemonCard';
+import { InfinitySpin } from 'react-loader-spinner';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
   );
 
   return (
+
     <div className='bg-slate-200 h-full min-h-screen py-32'>
       <p className='text-4xl mb-10 text-center'>imedia24 Pokemon Coding Challenge</p>
       <InfiniteScroll
@@ -32,7 +34,10 @@ function App() {
       >
 
         {loading ? (
-          <div >Loading...</div>
+          <InfinitySpin
+            width='200'
+            color="#800080"
+          />
         ) : error ? (
           <div>Error</div>
         ) : (

@@ -1,8 +1,9 @@
 import axios, { AxiosResponse } from "axios";
 import { IPokemon } from "../models/IPokemon";
 import { all, call, put, takeLatest } from "redux-saga/effects";
-import { FetchMorePokemonsAction, FetchPokemonsAction, FetchPokemonsFailureAction, FetchPokemonsSuccessAction } from "./pokemonsActions";
+import { FetchMorePokemonDetailsAction, FetchMorePokemonsAction, FetchPokemonsAction, FetchPokemonsDetailSuccessAction, FetchPokemonsFailureAction, FetchPokemonsSuccessAction } from "./pokemonsActions";
 import { PokemonActionTypes } from "./pokemonActionTypes";
+import { IPokemonDetails } from "../models/IPokemonDetails";
 
 
 
@@ -12,10 +13,14 @@ interface FetchPokemonsResponse {
     results: IPokemon[],
 }
 
+type FetchPokemonDetailsResponse = IPokemonDetails;
+
 
 const getPokemons = () => axios.get<FetchPokemonsResponse>("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=30");
 
 const getMorePokemons = (url: string) => axios.get<FetchPokemonsResponse>(url);
+
+const getPokemonDetails = (url: string) => axios.get<FetchPokemonDetailsResponse>(url);
 
 function* fetchPokemonsSaga() {
 
@@ -43,12 +48,6 @@ function* fetchPokemonsSaga() {
 
 function* fetchMorePokemonsSaga({ url }: FetchMorePokemonsAction) {
 
-    // const action: FetchMorePokemonsAction = {
-    //     type: PokemonActionTypes.FETCH_MORE_POKEMONS_REQUEST,
-    //     url: url,
-    // }
-
-    // yield put(action);
 
     try {
         const response = (yield call(getMorePokemons, url)) as AxiosResponse<FetchPokemonsResponse>;
@@ -71,9 +70,35 @@ function* fetchMorePokemonsSaga({ url }: FetchMorePokemonsAction) {
 }
 
 
+function* fetchMorePokemonsDetailsSaga({ url }: FetchMorePokemonDetailsAction) {
+
+
+    try {
+        const response = (yield call(getMorePokemons, url)) as AxiosResponse<FetchPokemonDetailsResponse>;
+
+        const action: FetchPokemonsDetailSuccessAction = {
+            type: PokemonActionTypes.FETCH_POKEMON_DETAILS_SUCCESS,
+            payload: response.data,
+        };
+
+        yield put(
+            action,
+        )
+    } catch (e: any) {
+        const action: FetchPokemonsFailureAction = {
+            type: PokemonActionTypes.FETCH_POKEMONS_FAILURE,
+            error: e.message,
+        }
+    }
+}
+
+
+
 function* pokemonsSaga() {
     yield all([takeLatest(PokemonActionTypes.FETCH_POKEMONS_REQUEST, fetchPokemonsSaga),
-    takeLatest(PokemonActionTypes.FETCH_MORE_POKEMONS_REQUEST, fetchMorePokemonsSaga),],
+    takeLatest(PokemonActionTypes.FETCH_MORE_POKEMONS_REQUEST, fetchMorePokemonsSaga),
+    takeLatest(PokemonActionTypes.FETCH_POKEMON_DETAILS_REQUEST, fetchMorePokemonsDetailsSaga),
+    ],
     );
 }
 
