@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { IPokemon } from "../models/IPokemon";
 import { all, call, put, takeLatest } from "redux-saga/effects";
-import { FetchMorePokemonDetailsAction, FetchMorePokemonsAction, FetchPokemonsAction, FetchPokemonsDetailSuccessAction, FetchPokemonsFailureAction, FetchPokemonsSuccessAction } from "./pokemonsActions";
+import { FetchMorePokemonDetailsAction, FetchMorePokemonsAction, FetchPokemonsDetailSuccessAction, FetchPokemonsFailureAction, FetchPokemonsSuccessAction } from "./pokemonsActions";
 import { PokemonActionTypes } from "./pokemonActionTypes";
 import { IPokemonDetails } from "../models/IPokemonDetails";
 
