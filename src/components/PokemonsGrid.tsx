@@ -26,16 +26,15 @@ const PokemonsGrid = () => {
             dataLength={data.length}
             next={() => dispatch({ type: PokemonActionTypes.FETCH_MORE_POKEMONS_REQUEST, url: next })}
             hasMore={next != null}
-            loader={<p>Loading...</p>}
+            loader={<div className="text-center" ><InfinitySpin
+                width='200'
+                color="#800080"
+            />
+            </div>}
             endMessage={<p>No more data to load.</p>}
         >
 
-            {loading ? (
-                <InfinitySpin
-                    width='200'
-                    color="#800080"
-                />
-            ) : error ? (
+            {error ? (
                 <div>Error</div>
             ) : (
                 <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 space-x-5 space-y-5'>
