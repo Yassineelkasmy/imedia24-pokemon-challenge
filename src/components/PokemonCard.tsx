@@ -39,7 +39,7 @@ const PokemonCard = ({ pokemon }: PokemonCardProps) => {
                 whileTap={{ scale: 0.8 }}
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1, animationDuration: "10s" }} className='flex flex-col justify-center h-48 border-2 border-black rounded-lg text-center text-2xl tracking-wider transition-all hover:shadow-2xl hover:cursor-pointer hover:bg-slate-300' key={pokemon.name}>
-                <p className="">{pokemon.name.toUpperCase()}</p>
+                <p >{pokemon.name.toUpperCase()}</p>
             </motion.div>
 
             <Transition appear show={isOpen} as={Fragment}>
