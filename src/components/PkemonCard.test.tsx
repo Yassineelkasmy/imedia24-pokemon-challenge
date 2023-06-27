@@ -6,12 +6,14 @@ import TestWrapper from "../shared/testUtils";
 
 
 
-test('Pokemon card', () => {
-    const pokemon: IPokemon = { name: "pokemon", url: "www.pokemon.com" }
-    render(<TestWrapper>
-        <PokemonCard pokemon={pokemon}></PokemonCard>
-    </TestWrapper>)
+describe("", () => {
+    it('Pokemon card', () => {
+        const pokemon: IPokemon = { name: "pokemon", url: "www.pokemon.com" }
+        render(<TestWrapper>
+            <PokemonCard pokemon={pokemon}></PokemonCard>
+        </TestWrapper >)
 
-    expect(screen.getByText(pokemon.name.toUpperCase())).toBeVisible();
+        expect(screen.getByText(pokemon.name.toUpperCase())).toBeVisible();
 
-}); 
+    });
+});

@@ -70,11 +70,11 @@ function* fetchMorePokemonsSaga({ url }: FetchMorePokemonsAction) {
 }
 
 
-function* fetchMorePokemonsDetailsSaga({ url }: FetchMorePokemonDetailsAction) {
+function* fetchPokemonsDetailsSaga({ url }: FetchMorePokemonDetailsAction) {
 
 
     try {
-        const response = (yield call(getMorePokemons, url)) as AxiosResponse<FetchPokemonDetailsResponse>;
+        const response = (yield call(getPokemonDetails, url)) as AxiosResponse<FetchPokemonDetailsResponse>;
 
         const action: FetchPokemonsDetailSuccessAction = {
             type: PokemonActionTypes.FETCH_POKEMON_DETAILS_SUCCESS,
@@ -97,7 +97,7 @@ function* fetchMorePokemonsDetailsSaga({ url }: FetchMorePokemonDetailsAction) {
 function* pokemonsSaga() {
     yield all([takeLatest(PokemonActionTypes.FETCH_POKEMONS_REQUEST, fetchPokemonsSaga),
     takeLatest(PokemonActionTypes.FETCH_MORE_POKEMONS_REQUEST, fetchMorePokemonsSaga),
-    takeLatest(PokemonActionTypes.FETCH_POKEMON_DETAILS_REQUEST, fetchMorePokemonsDetailsSaga),
+    takeLatest(PokemonActionTypes.FETCH_POKEMON_DETAILS_REQUEST, fetchPokemonsDetailsSaga),
     ],
     );
 }
